@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bearbeiten</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      padding: 2em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    input, textarea {
+      padding: 0.5em;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: rgb(90, 25, 2);
+      color: white;
+      padding: 0.8em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(120, 35, 5);
+    }
+  </style>
+</head>
+<body>
+  <h1>Film bearbeiten</h1>
+
+  <form id="bearbeitenForm">
+    <input type="text" id="name" name="Name" placeholder="Filmtitel" required />
+    <textarea id="kommentar" name="Kommentar" placeholder="Kommentar" required></textarea>
+    <input type="number" id="bewertung" name="Bewertung" min="1" max="5" placeholder="Bewertung (1–5)" required />
+    <button type="submit">Änderungen speichern</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    async function ladeDaten() {
+      const res = await fetch(`https://pb32.toiwxr.easypanel.host/api/collections/Film_bewertungen/records/${id}`);
+      const daten = await res.json();
+      document.getElementById("name").value = daten.Name;
+      document.getElementById("kommentar").value = daten.Kommentar;
+      document.getElementById("bewertung").value = daten.Bewertung;
+    }
+
+    ladeDaten();
+
+    document.getElementById("bearbeitenForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = {
+        Name: document.getElementById("name").value,
+        Kommentar: document.getElementById("kommentar").value,
+        Bewertung: parseInt(document.getElementById("bewertung").value)
+      };
+
+      await fetch(`https://pb32.toiwxr.easypanel.host/api/collections/Film_bewertungen/records/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      alert("Erfolgreich gespeichert!");
+      window.location.href = "bewertung.html";
+    });
+  </script>
+</body>
+</html>
