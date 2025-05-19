@@ -2,8 +2,9 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: #f4f4f4;
 }
+
 header {
   background-color: #dcdcdc;
   display: flex;
@@ -11,17 +12,24 @@ header {
   justify-content: space-between;
   padding: 1em;
 }
+
 .logo {
   display: flex;
   align-items: center;
 }
+
 .menu {
   display: flex;
-  gap: 1.5em;
+  gap: 3.5em;
 }
+
 .menu-item {
   font-weight: bold;
+  color:  #000000;
+  text-decoration: none;
+  text-transform: uppercase;  
 }
+
 main {
   padding: 2em;
   display: flex;
@@ -29,22 +37,27 @@ main {
   max-width: 1000px;
   margin: 0 auto;
 }
+
 h1 {
   font-size: 3em;
   margin-bottom: 1em;
 }
+
 .content {
   display: flex;
   gap: 2em;
   flex-wrap: wrap;
 }
+
 .poster {
   max-width: 300px;
   flex: 1 1 300px;
 }
+
 .details {
   flex: 2 1 400px;
 }
+
 .details b {
   display: inline-block;
   margin-top: 1em;
