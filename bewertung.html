@@ -79,6 +79,7 @@
         <th>Kommentar</th>
         <th>Bewertung</th>
         <th>Löschen</th>
+        <th>Bearbeiten</th>
       </tr>
     </thead>
     <tbody id="bewertungTableBody">
@@ -104,6 +105,16 @@
           const kommentarCell = document.createElement('td');
           const sterneCell = document.createElement('td');
           const loeschenCell = document.createElement('td');
+          const bearbeitenCell = document.createElement('td');
+          const bearbeitenLink = document.createElement('a');
+
+          bearbeitenLink.textContent = "Bearbeiten";
+          bearbeitenLink.href = `bearbeiten.html?id=${item.id}`;
+          bearbeitenLink.classList.add("link-button");
+          bearbeitenLink.style.fontSize = "0.9em";
+          bearbeitenLink.style.padding = "5px 10px";
+          bearbeitenLink.style.margin = "0";
+          bearbeitenCell.appendChild(bearbeitenLink);
 
           filmCell.textContent = item.Name;
           kommentarCell.textContent = item.Kommentar;
@@ -115,7 +126,9 @@
           row.appendChild(kommentarCell);
           row.appendChild(sterneCell);
           row.appendChild(loeschenCell);
+          row.appendChild(bearbeitenCell);
           tbody.appendChild(row);
+
         });
 
       } catch (error) {
