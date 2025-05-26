@@ -17,6 +17,27 @@
           margin: 0;
           padding: 0;
         }
+.bild-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .bild-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 5em;
+    }
         </style>
     </head>
     <body>
@@ -31,7 +52,10 @@
               </nav>
         </header>
         <main>
-          <img src="../banner.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
+          <div class="img-container">
+          <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
+            <div class="text-overlay">Film-Rating</div>
+          </div>
         </main>
         </body>
         <footer>
