@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kontakt</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    form {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 90%;
+      padding: 20px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: rgb(90, 25, 2);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: rgb(120, 35, 5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+        <a href="./index.html">
+          <img src="./logo.png" height="40" alt="Logo">
+        </a>
+      </div>
+      <nav class="menu">
+        <a class="menu-item" href="./index.html">Startseite</a>
+        <a class="menu-item" href="./bewertung.html">Meine Filme</a>
+        <a class="menu-item" href="./hinzufuegen.html">Film hinzufügen</a>
+        <a class="menu-item" href="./Kontakt.html">Kontakt</a>
+      </nav>
+  </header>
+
+  <h1>Kontaktformular</h1>
+
+  <form onsubmit="sendeKontakt(event)">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">E-Mail:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="nachricht">Nachricht:</label>
+    <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
+
+    <button type="submit">Absenden</button>
+  </form>
+
+  <script>
+    function sendeKontakt(event){
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = {};
+
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+
+      fetch("https://pb32.toiwxr.easypanel.host/api/collections/Kontaktformular/records/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+        .then(data => {
+          alert("Vielen Dank für deine Nachricht!");
+        })
+      .catch(error => {
+        alert("Fehler beim Senden. Bitte versuche es später erneut.");
+        console.error('Fehler:', error);
+      });
+    }
+  </script>
+
+</body>
+</html>
