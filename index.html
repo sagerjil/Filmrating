@@ -40,7 +40,22 @@
     }
         </style>
         <script>
-          
+ fetch('https://pb32.toiwxr.easypanel.host/_/api/collections/Filmposter/records') // URL zur API anpassen
+    .then(response => response.json())
+    .then(images => {
+      const container = document.getElementById('image-container');
+
+      images.forEach(imgData => {
+        const img = document.createElement('img');
+        img.src = imgData.url;
+        img.alt = 'Bild'; // alternativ beschreiben
+        img.style.width = '200px'; // optional Größe anpassen
+        img.style.margin = '10px';
+
+        container.appendChild(img);
+      });
+    })
+    .catch(error => console.error('Fehler beim Laden der Bilder:', error));
         </script>
     </head>
     <body>
