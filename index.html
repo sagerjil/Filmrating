@@ -5,40 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Filmbewertungen</title> 
         <link rel="stylesheet" href="style.css">
-        <style>
-          main {
-            margin: 0;
-            padding: 0;
-          }
-        #banner {
-          width: 100vw;
-          object-fit: cover;
-          display: block;
-          margin: 0;
-          padding: 0;
-        }
-    .bild-container {
-      position: relative;
-      display: inline-block;
-    }
 
-    .bild-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .text-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 5em;
-    }
-        </style>
         <script>
  fetch('https://pb32.toiwxr.easypanel.host/_/api/collections/Filmposter/records') // URL zur API anpassen
     .then(response => response.json())
