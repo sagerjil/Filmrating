@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bearbeiten</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Interne CSS-Styles für das Formular -->
   <style>
     body {
       text-align: center;
@@ -44,8 +46,10 @@
   </style>
 </head>
 <body>
+  <!-- Hauptüberschrift -->
   <h1>Film bearbeiten</h1>
 
+  <!-- Formular zur Bearbeitung eines Films -->
   <form id="bearbeitenForm">
     <input type="text" id="name" name="Name" placeholder="Filmtitel" required />
     <textarea id="kommentar" name="Kommentar" placeholder="Kommentar" required></textarea>
@@ -54,28 +58,36 @@
   </form>
 
   <script>
+    // Liest die Film-ID aus der URL (z. B. ?id=abc123)
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
+    // Lädt die vorhandenen Filmdaten vom Server und befüllt das Formular
     async function ladeDaten() {
       const res = await fetch(`https://pb32.toiwxr.easypanel.host/api/collections/Film_bewertungen/records/${id}`);
       const daten = await res.json();
+
+      // Befüllt die Formularfelder mit den vorhandenen Daten
       document.getElementById("name").value = daten.Name;
       document.getElementById("kommentar").value = daten.Kommentar;
       document.getElementById("bewertung").value = daten.Bewertung;
     }
 
+    // Direkt beim Laden der Seite Daten holen
     ladeDaten();
 
+    // Beim Absenden des Formulars:
     document.getElementById("bearbeitenForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+      e.preventDefault(); // Verhindert Seiten-Neuladen
 
+      // Formulardaten auslesen und in ein Objekt speichern
       const formData = {
         Name: document.getElementById("name").value,
         Kommentar: document.getElementById("kommentar").value,
         Bewertung: parseInt(document.getElementById("bewertung").value)
       };
 
+      // PATCH-Anfrage zum Aktualisieren des Datensatzes auf dem Server
       await fetch(`https://pb32.toiwxr.easypanel.host/api/collections/Film_bewertungen/records/${id}`, {
         method: "PATCH",
         headers: {
@@ -84,6 +96,7 @@
         body: JSON.stringify(formData)
       });
 
+      // Erfolgsnachricht und Weiterleitung zur Übersicht
       alert("Erfolgreich gespeichert!");
       window.location.href = "bewertung.html";
     });
