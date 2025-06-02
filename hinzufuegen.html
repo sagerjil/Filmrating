@@ -78,22 +78,24 @@
 
 <body>
 
+ <!-- Navigationsleiste -->
   <header>
     <div class="logo">
-        <a href="./index.html">
-          <img src="./logo.png" height="40" alt="Logo">
-        </a>
-      </div>
-      <nav class="menu">
-        <a class="menu-item" href="./bewertung.html">Meine Filme</a>
-        <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
-        <a class="menu-item" href="./Kontakt.html">Kontakt</a>
-      </nav>
+      <a href="./index.html">
+        <img src="./logo.png" height="40" alt="Logo">
+      </a>
+    </div>
+    <nav class="menu">
+      <a class="menu-item" href="./bewertung.html">Meine Filme</a>
+      <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
+      <a class="menu-item" href="./Kontakt.html">Kontakt</a>
+    </nav>
   </header>
 
-
+  <!-- Hauptüberschrift -->
   <h1>Neue Filmbewertung</h1>
 
+  <!-- Formular zur Eingabe einer neuen Bewertung -->
   <div id="form-container">
     <form id="bewertungForm" onsubmit="submitForm(event)">
       <label for="filmname">Filmname:</label>
@@ -109,38 +111,54 @@
     </form>
   </div>
 
-  <a href="bewertung.html" class="link-button">Zurück zur Übersicht  →</a>
-
+  <!-- Link zurück zur Bewertungsübersicht -->
+  <a href="bewertung.html" class="link-button">Zurück zur Übersicht →</a>
 
   <script>
+    // Diese Funktion wird beim Absenden des Formulars aufgerufen
     function submitForm(event) {
-      event.preventDefault();
+      event.preventDefault(); // Verhindert das Neuladen der Seite
 
-      const formData = new FormData(event.target);
-      const daten = {};
+      // Erstellt ein JavaScript-Objekt aus dem Formular 
+      const data = createJsObjectFromHtmlForm(event);
 
-      for (let [key, value] of formData.entries()) {
-        daten[key] = value;
-      }
+      // Wandelt das JavaScript-Objekt in einen JSON-String um
+      const jsonBody = JSON.stringify(data);
 
+      // Sendet die Bewertung als POST-Anfrage an die REST API
       fetch('https://pb32.toiwxr.easypanel.host/api/collections/Film_bewertungen/records/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(daten)
+        body: jsonBody
       })
-        .then(response => response.json())
+        .then(response => response.json()) // Antwort in JSON umwandeln
         .then(data => {
+          // Erfolgsnachricht anzeigen und zur Übersichtsseite weiterleiten
           alert('Bewertung erfolgreich gespeichert!');
           window.location.href = 'bewertung.html';
         })
-        .catch(error => {
+        .catch((error) => {
+          // Fehlerbehandlung: Fehlermeldung anzeigen
           alert('Fehler beim Speichern. Bitte versuche es später erneut.');
           console.error('Fehler:', error);
         });
     }
+
+    // Diese Funktion wandelt die Formulardaten in ein JavaScript-Objekt um
+    function createJsObjectFromHtmlForm(event) {
+      const formData = new FormData(event.target);
+      const data = {};
+
+      for (let [key, value] of formData.entries()) { 
+        data[key] = value; // Eintrag in die Tabelle speichern 
+      }
+
+      return data; // Rückgabe des ausgefüllten Objekts
+    }
   </script>
+
 
 </body>
 
