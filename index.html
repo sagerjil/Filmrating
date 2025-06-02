@@ -68,7 +68,7 @@
   fetch(`${baseUrl}/api/collections/${collection}/records`)
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('bild-container');
+      const container = document.getElementById('img-container');
 
       data.items.forEach(record => {
         // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
