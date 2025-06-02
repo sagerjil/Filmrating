@@ -40,16 +40,26 @@
     }
         </style>
         <script>
- fetch('https://pb32.toiwxr.easypanel.host/_/api/collections/Filmposter/records') // URL zur API anpassen
+ const baseUrl = 'https://pb32.toiwxr.easypanel.host/_';
+  const collection = 'Filmposter';
+
+  fetch(`${baseUrl}/api/collections/${collection}/records`)
     .then(response => response.json())
-    .then(images => {
+    .then(data => {
       const container = document.getElementById('image-container');
 
-      images.forEach(imgData => {
+      data.items.forEach(record => {
+        // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
+        const fileName = record.bild; // Beispiel-Feldname
+        if (!fileName) return; // Falls kein Bild vorhanden, überspringen
+
+        // Bild-URL zusammensetzen
+        const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
+
         const img = document.createElement('img');
-        img.src = imgData.url;
-        img.alt = 'Bild'; // alternativ beschreiben
-        img.style.width = '200px'; // optional Größe anpassen
+        img.src = imageUrl;
+        img.alt = record.title || 'Filmposter Bild';
+        img.style.width = '200px';
         img.style.margin = '10px';
 
         container.appendChild(img);
