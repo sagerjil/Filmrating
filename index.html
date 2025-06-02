@@ -41,18 +41,40 @@
 
         </style>
 
+    </head>
+    <body>
+        <header>
+            <nav>
+            <div class="logo">
+                <a href="./index.html">
+                  <img src="./logo.png" height="40" alt="Logo">
+                </a>
+              </div>
+                <a class="menu-item" href="./bewertung.html">Meine Filme</a>
+                <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
+                <a class="menu-item" href="./Kontakt.html">Kontakt</a>
+              </nav>
+        </header>
+        <main>
+          <div class="bild-container" id="bild-container">
+            <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
+            <div class="text-overlay">Film-Rating</div>
+          </div>
+      
+        </main>
+
         <script>
- const baseUrl = 'https://pb32.toiwxr.easypanel.host/_';
+ const baseUrl = 'https://pb32.toiwxr.easypanel.host';
   const collection = 'Filmposter';
 
   fetch(`${baseUrl}/api/collections/${collection}/records`)
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('image-container');
+      const container = document.getElementById('bild-container');
 
       data.items.forEach(record => {
         // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
-        const fileName = record.bild; // Beispiel-Feldname
+        const fileName = record.field; // Beispiel-Feldname
         if (!fileName) return; // Falls kein Bild vorhanden, überspringen
 
         // Bild-URL zusammensetzen
@@ -69,28 +91,6 @@
     })
     .catch(error => console.error('Fehler beim Laden der Bilder:', error));
         </script>
-    </head>
-    <body>
-        <header>
-            <nav>
-            <div class="logo">
-                <a href="./index.html">
-                  <img src="./logo.png" height="40" alt="Logo">
-                </a>
-              </div>
-                <a class="menu-item" href="./bewertung.html">Meine Filme</a>
-                <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
-                <a class="menu-item" href="./Kontakt.html">Kontakt</a>
-              </nav>
-        </header>
-        <main>
-          <div class="bild-container">
-            <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
-            <div class="text-overlay">Film-Rating</div>
-          </div>
-      
-        </main>
-
         </body>
 
 </html>
