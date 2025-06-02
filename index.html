@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Filmbewertungen</title> 
-        <link rel="stylesheet" href="style.css">
-        <style>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmbewertungen</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
     main {
-        padding:0;
-        margin:0;
+      padding: 0;
+      margin: 0;
     }
-    
+
     #banner {
       width: 100vw;
       object-fit: cover;
       display: block;
       margin: 0;
       padding: 0;
-        }
+    }
 
-     .bild-container {
+    .bild-container {
       position: relative;
       display: inline-block;
     }
 
 
-     .bild-container img {
+    .bild-container img {
 
       width: 100%;
       height: auto;
@@ -42,58 +42,80 @@
       border-radius: 10px;
       font-size: 5em;
     }
-        </style>
 
-    </head>
-    <body>
-        <header>
-            <div class="logo">
-                <a href="./index.html">
-                  <img src="./logo.png" height="40" alt="Logo">
-                </a>
-              </div>
-            <nav class="menu">
-                <a class="menu-item" href="./bewertung.html">Meine Filme</a>
-                <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
-                <a class="menu-item" href="./Kontakt.html">Kontakt</a>
-              </nav>
-        </header>
-        <main>
-          <div class="bild-container" id="bild-container">
-            <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
-            <div class="text-overlay">Film-Rating</div>
-          </div>
+ #bild-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px; /* Abstand zwischen den Bildern */
+    justify-content: center;
+    padding: 20px;
+  }
 
-        </main>
+  .poster {
+    width: 100px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
 
-        <script>
- const baseUrl = 'https://pb32.toiwxr.easypanel.host';
-  const collection = 'Filmposter';
+  .poster:hover {
+    transform: scale(1.05);
+  }
+  </style>
 
-  fetch(`${baseUrl}/api/collections/${collection}/records`)
-    .then(response => response.json())
-    .then(data => {
-      const container = document.getElementById('img-container');
+</head>
 
-      data.items.forEach(record => {
-        // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
-        const fileName = record.field; // Beispiel-Feldname
-        if (!fileName) return; // Falls kein Bild vorhanden, überspringen
+<body>
+  <header>
+    <div class="logo">
+      <a href="./index.html">
+        <img src="./logo.png" height="40" alt="Logo">
+      </a>
+    </div>
+    <nav class="menu">
+      <a class="menu-item" href="./bewertung.html">Meine Filme</a>
+      <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
+      <a class="menu-item" href="./Kontakt.html">Kontakt</a>
+    </nav>
+  </header>
+  <main>
+    <div class="bild-container">
+      <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
+      <div class="text-overlay">Film-Rating</div>
+    </div>
+    <div id="bild-container">
 
-        // Bild-URL zusammensetzen
-        const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
+    </div>
 
-        const img = document.createElement('img');
+  </main>
+
+  <script>
+    const baseUrl = 'https://pb32.toiwxr.easypanel.host';
+    const collection = 'Filmposter';
+
+    fetch(`${baseUrl}/api/collections/${collection}/records`)
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('bild-container');
+
+        data.items.forEach(record => {
+          // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
+          const fileName = record.field; // Beispiel-Feldname
+          if (!fileName) return; // Falls kein Bild vorhanden, überspringen
+
+          // Bild-URL zusammensetzen
+          const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
+
+         const img = document.createElement('img');
         img.src = imageUrl;
-        img.alt = record.title || 'Filmposter Bild';
-        img.style.width = '200px';
-        img.style.margin = '10px';
+        img.alt = record.title || 'Filmposter';
+        img.classList.add('poster');
 
-        container.appendChild(img);
-      });
-    })
-    .catch(error => console.error('Fehler beim Laden der Bilder:', error));
-        </script>
-        </body>
+          container.appendChild(img);
+        });
+      })
+      .catch(error => console.error('Fehler beim Laden der Bilder:', error));
+  </script>
+</body>
 
 </html>
