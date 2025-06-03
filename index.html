@@ -44,11 +44,12 @@
     }
 
  #bild-container {
+      justify-content: center;
     display: flex;
     flex-wrap: wrap;
     gap: 12px; /* Abstand zwischen den Bildern */
-    justify-content: center;
     padding: 20px;
+    
   }
 
   .poster {
@@ -56,11 +57,17 @@
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+     
   }
 
   .poster:hover {
     transform: scale(1.05);
+    
   }
+
+
+
+
   </style>
 
 </head>
@@ -83,7 +90,7 @@
       <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
       <div class="text-overlay">Film-Rating</div>
     </div>
-    <div id="bild-container">
+    <div id="bild-container" class="poster-grid">
 
     </div>
 
