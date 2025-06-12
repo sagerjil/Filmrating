@@ -49,11 +49,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-.poster {
-  max-width: 300px;
-  flex: 1 1 300px;
-}
-
 .details {
   flex: 2 1 400px;
 }
@@ -62,4 +57,3 @@ h1 {
   display: inline-block;
   margin-top: 1em;
 }
-

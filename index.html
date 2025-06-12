@@ -7,10 +7,11 @@
   <title>Filmbewertungen</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    main {
-      padding: 0;
-      margin: 0;
-    }
+  
+  html, body {
+  margin: 0;
+  padding: 0;
+}
 
     #banner {
       width: 100vw;
@@ -27,7 +28,6 @@
 
 
     .bild-container img {
-
       width: 100%;
       height: auto;
       display: block;
@@ -43,24 +43,27 @@
       font-size: 5em;
     }
 
- #bild-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px; /* Abstand zwischen den Bildern */
-    justify-content: center;
-    padding: 20px;
-  }
+#bild-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  .poster {
-    width: 50px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
+.poster {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
 
-  .poster:hover {
-    transform: scale(1.05);
-  }
+.poster:hover {
+  transform: scale(1.05);
+}
   </style>
 
 </head>
@@ -100,12 +103,11 @@
 
         data.items.forEach(record => {
           // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
-          const fileName = record.field; // Beispiel-Feldname
+          const fileName = record.bild; // Beispiel-Feldname
           if (!fileName) return; // Falls kein Bild vorhanden, überspringen
 
           // Bild-URL zusammensetzen
           const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
-
          const img = document.createElement('img');
         img.src = imageUrl;
         img.alt = record.title || 'Filmposter';
