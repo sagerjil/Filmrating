@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interstellar</title> 
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+        <a href="./index.html">
+          <img src="./logo.png" height="40" alt="Logo">
+        </a>
+      </div>
+      <nav class="menu">
+        <a class="menu-item" href="./bewertung.html">Meine Filme</a>
+        <a class="menu-item" href="./hinzufuegen.html">Film Hinzufügen</a>
+        <a class="menu-item" href="./Kontakt.html">Kontakt</a>
+      </nav>
+  </header>
+
+  <main>
+    <h1 id="titel"></h1>
+    <div class="content">
+      <img id="bild">
+      <div id="beschreibung">
+      </div>
+      <div id="regie">
+      </div>
+      <div id="schauspieler">
+      </div>
+      <div id="dauer">
+      </div>
+      <div id="veroeffentlicht">
+      </div>
+      <div id="status">
+      </div>
+      <div id="streaming">
+      </div>
+    </div>
+  </main>
+
+  <script>
+  function loadNoteData(noteId) {
+            fetch('https://pb32.toiwxr.easypanel.host/api/collections/Filmposter/records/' + noteId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('titel').textContent = data.titel;
+                    document.getElementById('bild').src = `https://pb32.toiwxr.easypanel.host/api/files/Filmposter/${data.id}/${data.bild}`;
+                    document.getElementById('beschreibung').textContent = data.beschreibung;
+                    document.getElementById('regie').textContent = data.regie;
+                    document.getElementById('schauspieler').textContent = data.schauspieler;
+                    document.getElementById('dauer').textContent = data.dauer;
+                    document.getElementById('veroeffentlicht').textContent = data.veroeffentlicht;
+                    document.getElementById('status').textContent = data.streaming;
+                    
+                })
+                .catch((error) => {
+                    alert('Ein Fehler beim Laden der Daten ist aufgetreten. Bitte versuchen Sie es später erneut.');
+                    console.error('Error:', error);
+                });
+        }
+
+        // Extract the noteId from the URL query parameters
+        const url = window.location.href;
+        const queryParams = new URLSearchParams(new URL(url).search);
+        const noteId = queryParams.get('id');
+
+        if (noteId) {
+            loadNoteData(noteId);
+        } else {
+            alert('Keine Note-ID in der URL gefunden.');
+        }
+  </script>
+
+</body>
+</html>

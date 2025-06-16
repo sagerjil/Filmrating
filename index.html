@@ -28,14 +28,12 @@
 
 
     .bild-container img {
-      width: 100%;
       height: auto;
-      display: block;
     }
 
     .text-overlay {
       position: absolute;
-      top: 50%;
+      top: 37%;
       left: 50%;
       color: white;
       padding: 20px 10px;
@@ -52,7 +50,7 @@
   }
 
   .poster {
-    width: 50px;
+    width: 15%;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
@@ -83,9 +81,7 @@
       <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
       <div class="text-overlay">Film-Rating</div>
     </div>
-    <div id="bild-container" class="poster-grid">
-
-    </div>
+    <div id="bild-container" class="poster-grid"></div>
 
   </main>
 
@@ -107,6 +103,7 @@
           const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
          const img = document.createElement('img');
         img.src = imageUrl;
+        img.onclick = () => window.open('detail.html?id=' + record.id, '_self')
         img.alt = record.title || 'Filmposter';
         img.classList.add('poster');
 
