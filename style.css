@@ -45,8 +45,9 @@ h1 {
 
 .content {
   display: flex;
-  gap: 2em;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1.5em;
+  padding: 1em;
 }
 
 .details {
@@ -59,5 +60,7 @@ h1 {
 }
 
 #bild {
-  height: 375px;
+width: 100%;
+  max-width: 375px;
+  height: auto;
 }
