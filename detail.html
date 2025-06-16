@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interstellar</title> 
+  <title id="seitentitel"></title> 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,6 +53,7 @@
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('titel').textContent = data.titel;
+                    document.getElementById('seitentitel').textContent = data.seitentitel;
                     document.getElementById('bild').src = `https://pb32.toiwxr.easypanel.host/api/files/Filmposter/${data.id}/${data.bild}`;
                     document.getElementById('beschreibung').textContent = data.beschreibung;
                     document.getElementById('regie').textContent = data.regie;
