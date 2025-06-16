@@ -7,15 +7,13 @@
   <title>Filmbewertungen</title>
   <link rel="stylesheet" href="style.css">
   <style>
-  
-  html, body {
-  margin: 0;
-  padding: 0;
-}
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
     #banner {
-      width: 100vw;
-      object-fit: cover;
+      width: 100%;
       display: block;
       margin: 0;
       padding: 0;
@@ -23,9 +21,8 @@
 
     .bild-container {
       position: relative;
-      display: inline-block;
+      display: block;
     }
-
 
     .bild-container img {
       height: auto;
@@ -35,19 +32,20 @@
       position: absolute;
       top: 37%;
       left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
       padding: 20px 10px;
       border-radius: 10px;
       font-size: 5em;
     }
 
- #bild-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px; /* Abstand zwischen den Bildern */
-    justify-content: center;
-    padding: 20px;
-  }
+    #bild-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      padding: 20px;
+    }
 
   .poster {
     width: 15%;
@@ -56,11 +54,10 @@
     transition: transform 0.3s ease;
   }
 
-  .poster:hover {
-    transform: scale(1.05);
-  }
+    .poster:hover {
+      transform: scale(1.05);
+    }
   </style>
-
 </head>
 
 <body>
@@ -76,6 +73,7 @@
       <a class="menu-item" href="./Kontakt.html">Kontakt</a>
     </nav>
   </header>
+
   <main>
     <div class="bild-container">
       <img src="./Bilder/banner_final.jpg" id="banner" alt="Filmkameras, Filmrollen und Popcorn">
@@ -83,6 +81,7 @@
     </div>
     <div id="bild-container" class="poster-grid"></div>
 
+    <div id="bild-container" class="poster-grid"></div>
   </main>
 
   <script>
@@ -95,11 +94,9 @@
         const container = document.getElementById('bild-container');
 
         data.items.forEach(record => {
-          // Angenommen, dein Bildfeld heißt 'bild' — bitte Feldnamen anpassen!
-          const fileName = record.bild; // Beispiel-Feldname
-          if (!fileName) return; // Falls kein Bild vorhanden, überspringen
+          const fileName = record.bild; // <- bleibt wie du es hattest
+          if (!fileName) return;
 
-          // Bild-URL zusammensetzen
           const imageUrl = `${baseUrl}/api/files/${collection}/${record.id}/${fileName}`;
          const img = document.createElement('img');
         img.src = imageUrl;
